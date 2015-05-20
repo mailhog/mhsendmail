@@ -4,9 +4,9 @@ mhsendmail
 A sendmail replacement which forwards mail to an SMTP server.
 
 ```bash
-go get github.com/mailhog/mhsendmail
+> go get github.com/mailhog/mhsendmail
 
-./mhsendmail test@mailhog.local <<EOF
+> mhsendmail test@mailhog.local <<EOF
 From: App <app@mailhog.local>
 To: Test <test@mailhog.local>
 Subject: Test message
