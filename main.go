@@ -19,7 +19,7 @@ func main() {
 
 	username := "nobody"
 	user, err := user.Current()
-	if err != nil && user == nil && len(user.Username) > 0 {
+	if err == nil && user != nil && len(user.Username) > 0 {
 		username = user.Username
 	}
 
