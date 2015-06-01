@@ -1,6 +1,9 @@
-VERSION=0.1.8
+VERSION=0.1.9
 
-all: release
+all: deps release
+
+deps:
+	go get github.com/ogier/pflag
 
 release: release-deps
 	gox -output="build/{{.Dir}}_{{.OS}}_{{.Arch}}" .

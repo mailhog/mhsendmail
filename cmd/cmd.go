@@ -8,10 +8,24 @@ import (
 	"net/smtp"
 	"os"
 	"os/user"
+	"strings"
+
+	"github.com/ogier/pflag"
 )
 
 func Go() {
 	smtpAddr := "localhost:1025"
+
+	goflag := false
+	for _, g := range os.Args[1:] {
+		if strings.HasPrefix(g, "-") && !strings.HasPrefix(g, "--") {
+			if strings.HasPrefix(g, "-from ") || strings.HasPrefix(g, "-from=") ||
+				strings.HasPrefix(g, "-smtp-addr ") || strings.HasPrefix(g, "-smtp-addr=") {
+				goflag = true
+				break
+			}
+		}
+	}
 
 	host, err := os.Hostname()
 	if err != nil {
@@ -25,13 +39,22 @@ func Go() {
 	}
 
 	fromAddr := username + "@" + host
+	var recip []string
 
-	flag.StringVar(&smtpAddr, "smtp-addr", smtpAddr, "SMTP server address")
-	flag.StringVar(&fromAddr, "from", fromAddr, "SMTP sender")
+	if goflag {
+		flag.StringVar(&smtpAddr, "smtp-addr", smtpAddr, "SMTP server address")
+		flag.StringVar(&fromAddr, "from", fromAddr, "SMTP sender")
 
-	flag.Parse()
+		flag.Parse()
+		recip = flag.Args()
+	} else {
+		pflag.StringVar(&smtpAddr, "smtp-addr", smtpAddr, "SMTP server address")
+		pflag.StringVarP(&fromAddr, "from", "f", fromAddr, "SMTP sender")
 
-	recip := flag.Args()
+		pflag.Parse()
+		recip = pflag.Args()
+	}
+
 	if len(recip) == 0 {
 		fmt.Fprintln(os.Stderr, "missing recipient")
 		os.Exit(10)
