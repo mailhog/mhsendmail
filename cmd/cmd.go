@@ -75,7 +75,7 @@ func Go() {
 			fmt.Fprintln(os.Stderr, "missing recipient")
 			os.Exit(10)
 		}
-		newRecip := make([]string, len(recip), len(recip)+len(includedRecip)+1)
+		newRecip := make([]string, len(recip), len(recip)+len(includedRecip))
 		copy(newRecip, recip)
 		recip = append(newRecip, includedRecip...)
 	}
