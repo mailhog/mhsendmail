@@ -67,7 +67,8 @@ func Go() {
 	if len(recip) == 0 {
 		// We only need to parse the message to get a recipient if none where
 		// provided on the command line.
-		re := regexp.MustCompile("(?im)^To: (.*)\r\n$")
+//		re := regexp.MustCompile("(?im)^To: (.*)\r*\n$")
+		re := regexp.MustCompile("(?im)^To: (.*)\r*$")
 		n := bytes.IndexByte(body, 0)
 		var bodyStr string;
 		if n < 0  {
@@ -75,7 +76,6 @@ func Go() {
 		} else {
 			bodyStr = string(body[:n])
 		}
-		bodyStr := string(body[:n])
 		includedRecip := re.FindAllString(bodyStr, -1)
 		if includedRecip == nil {
 			fmt.Fprintln(os.Stderr, "missing recipient")
