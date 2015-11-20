@@ -69,6 +69,12 @@ func Go() {
 		// provided on the command line.
 		re := regexp.MustCompile("(?im)^To: (.*)\r\n$")
 		n := bytes.IndexByte(body, 0)
+		var bodyStr string;
+		if n < 0  {
+			bodyStr = string(body)
+		} else {
+			bodyStr = string(body[:n])
+		}
 		bodyStr := string(body[:n])
 		includedRecip := re.FindAllString(bodyStr, -1)
 		if includedRecip == nil {
