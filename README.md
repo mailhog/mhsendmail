@@ -33,8 +33,16 @@ Or override the destination SMTP server:
 ./mhsendmail -smtp-addr "localhost:1026" test@mailhog.local ...
 ```
 
+To use from php.ini
+
+```
+sendmail_path = /usr/local/bin/mhsendmail
+```
+
 ### Licence
 
 Copyright ©‎ 2015, Ian Kent (http://iankent.uk)
 
 Released under MIT license, see [LICENSE](LICENSE.md) for details.
+
+
