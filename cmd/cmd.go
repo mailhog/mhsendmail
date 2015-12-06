@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"net/mail"
 	"net/smtp"
 	"os"
 	"os/user"
-	"regexp"
 	"strings"
 
 	"github.com/ogier/pflag"
@@ -64,20 +64,16 @@ func Go() {
 		os.Exit(11)
 	}
 
+	msg, err := mail.ReadMessage(bytes.NewReader(body))
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "error parsing message body")
+		os.Exit(11)
+	}
+
 	if len(recip) == 0 {
 		// We only need to parse the message to get a recipient if none where
 		// provided on the command line.
-		re := regexp.MustCompile("(?im)^To: (.*)\r\n$")
-		n := bytes.IndexByte(body, 0)
-		bodyStr := string(body[:n])
-		includedRecip := re.FindAllString(bodyStr, -1)
-		if includedRecip == nil {
-			fmt.Fprintln(os.Stderr, "missing recipient")
-			os.Exit(10)
-		}
-		newRecip := make([]string, len(recip), len(recip)+len(includedRecip))
-		copy(newRecip, recip)
-		recip = append(newRecip, includedRecip...)
+		recip = append(recip, msg.Header.Get("To"))
 	}
 
 	err = smtp.SendMail(smtpAddr, nil, fromAddr, recip, body)
