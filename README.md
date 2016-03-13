@@ -41,8 +41,6 @@ sendmail_path = /usr/local/bin/mhsendmail
 
 ### Licence
 
-Copyright ©‎ 2015, Ian Kent (http://iankent.uk)
+Copyright ©‎ 2015 - 2016, Ian Kent (http://iankent.uk)
 
 Released under MIT license, see [LICENSE](LICENSE.md) for details.
-
-
