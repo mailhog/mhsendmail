@@ -19,6 +19,10 @@ import (
 func Go() {
 	smtpAddr := "localhost:1025"
 
+	if len(os.Getenv("MHS_SMTP_ADDR")) > 0 {
+		smtpAddr = os.Getenv("MHS_SMTP_ADDR")
+	}
+
 	goflag := false
 	for _, g := range os.Args[1:] {
 		if strings.HasPrefix(g, "-") && !strings.HasPrefix(g, "--") {
