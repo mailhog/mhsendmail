@@ -19,10 +19,6 @@ import (
 func Go() {
 	smtpAddr := "localhost:1025"
 
-	if len(os.Getenv("MHS_SMTP_ADDR")) > 0 {
-		smtpAddr = os.Getenv("MHS_SMTP_ADDR")
-	}
-
 	goflag := false
 	for _, g := range os.Args[1:] {
 		if strings.HasPrefix(g, "-") && !strings.HasPrefix(g, "--") {
@@ -47,6 +43,14 @@ func Go() {
 
 	fromAddr := username + "@" + host
 	var recip []string
+
+	// read defaults from envars if provided
+	if len(os.Getenv("MH_SENDMAIL_SMTP_ADDR")) > 0 {
+		smtpAddr = os.Getenv("MH_SENDMAIL_SMTP_ADDR")
+	}
+	if len(os.Getenv("MH_SENDMAIL_FROM")) > 0 {
+		fromAddr = os.Getenv("MH_SENDMAIL_FROM")
+	}
 
 	if goflag {
 		flag.StringVar(&smtpAddr, "smtp-addr", smtpAddr, "SMTP server address")
