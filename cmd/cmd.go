@@ -44,6 +44,14 @@ func Go() {
 	fromAddr := username + "@" + host
 	var recip []string
 
+	// read defaults from envars if provided
+	if len(os.Getenv("MH_SENDMAIL_SMTP_ADDR")) > 0 {
+		smtpAddr = os.Getenv("MH_SENDMAIL_SMTP_ADDR")
+	}
+	if len(os.Getenv("MH_SENDMAIL_FROM")) > 0 {
+		fromAddr = os.Getenv("MH_SENDMAIL_FROM")
+	}
+
 	if goflag {
 		flag.StringVar(&smtpAddr, "smtp-addr", smtpAddr, "SMTP server address")
 		flag.StringVar(&fromAddr, "from", fromAddr, "SMTP sender")
