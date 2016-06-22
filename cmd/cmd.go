@@ -53,6 +53,8 @@ func Go() {
 	} else {
 		pflag.StringVar(&smtpAddr, "smtp-addr", smtpAddr, "SMTP server address")
 		pflag.StringVarP(&fromAddr, "from", "f", fromAddr, "SMTP sender")
+		pflag.BoolP("long-i", "i", true, "Ignored. This flag exists for sendmail compatibility.")
+		pflag.BoolP("long-t", "t", true, "Ignored. This flag exists for sendmail compatibility.")
 
 		pflag.Parse()
 		recip = pflag.Args()
