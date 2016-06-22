@@ -47,12 +47,16 @@ func Go() {
 	if goflag {
 		flag.StringVar(&smtpAddr, "smtp-addr", smtpAddr, "SMTP server address")
 		flag.StringVar(&fromAddr, "from", fromAddr, "SMTP sender")
+		flag.Bool("i", true, "Ignored. This flag exists for sendmail compatibility.")
+		flag.Bool("t", true, "Ignored. This flag exists for sendmail compatibility.")
 
 		flag.Parse()
 		recip = flag.Args()
 	} else {
 		pflag.StringVar(&smtpAddr, "smtp-addr", smtpAddr, "SMTP server address")
 		pflag.StringVarP(&fromAddr, "from", "f", fromAddr, "SMTP sender")
+		pflag.Bool("i", true, "Ignored. This flag exists for sendmail compatibility.")
+		pflag.Bool("t", true, "Ignored. This flag exists for sendmail compatibility.")
 
 		pflag.Parse()
 		recip = pflag.Args()
