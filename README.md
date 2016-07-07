@@ -18,19 +18,19 @@ EOF
 You can also set the from address (for SMTP `MAIL FROM`):
 
 ```bash
-./mhsendmail -from "admin@mailhog.local" test@mailhog.local ...
+./mhsendmail --from="admin@mailhog.local" test@mailhog.local ...
 ```
 
 Or pass in multiple recipients:
 
 ```bash
-./mhsendmail -from "admin@mailhog.local" test@mailhog.local test2@mailhog.local ...
+./mhsendmail --from="admin@mailhog.local" test@mailhog.local test2@mailhog.local ...
 ```
 
 Or override the destination SMTP server:
 
 ```bash
-./mhsendmail -smtp-addr "localhost:1026" test@mailhog.local ...
+./mhsendmail --smtp-addr="localhost:1026" test@mailhog.local ...
 ```
 
 To use from php.ini
