@@ -45,7 +45,7 @@ func Go() {
 	flag.StringVarP(&fromAddr, "from", "f", fromAddr, "SMTP sender")
 	flag.BoolP("long-i", "i", true, "Ignored. This flag exists for sendmail compatibility.")
 	flag.BoolP("long-t", "t", true, "Ignored. This flag exists for sendmail compatibility.")
-	flag.BoolVarP(&verbose, "verbose", "v", true, "Verbose mode (sends debug output to stderr)")
+	flag.BoolVarP(&verbose, "verbose", "v", false, "Verbose mode (sends debug output to stderr)")
 	flag.Parse()
 
 	// allow recipient to be passed as an argument
