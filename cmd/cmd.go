@@ -44,6 +44,7 @@ func Go() {
 	flag.StringVar(&smtpAddr, "smtp-addr", smtpAddr, "SMTP server address")
 	flag.StringVarP(&fromAddr, "from", "f", fromAddr, "SMTP sender")
 	flag.BoolP("long-i", "i", true, "Ignored. This flag exists for sendmail compatibility.")
+	flag.BoolP("long-o", "o", true, "Ignored. This flag exists for sendmail compatibility.")
 	flag.BoolP("long-t", "t", true, "Ignored. This flag exists for sendmail compatibility.")
 	flag.BoolVarP(&verbose, "verbose", "v", false, "Verbose mode (sends debug output to stderr)")
 	flag.Parse()
