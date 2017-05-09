@@ -9,6 +9,7 @@ import (
 	"net/smtp"
 	"os"
 	"os/user"
+	"strings"
 )
 
 import flag "github.com/spf13/pflag"
@@ -72,6 +73,12 @@ func Go() {
 		// We only need to parse the message to get a recipient if none where
 		// provided on the command line.
 		recip = append(recip, msg.Header.Get("To"))
+		for _,cc := range strings.Split(msg.Header.Get("Cc"), ",") {
+			recip = append(recip, strings.TrimSpace(cc))
+		}
+		for _,bcc := range strings.Split(msg.Header.Get("Bcc"), ",") {
+			recip = append(recip, strings.TrimSpace(bcc))
+		}
 	}
 
 	err = smtp.SendMail(smtpAddr, nil, fromAddr, recip, body)
