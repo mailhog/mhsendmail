@@ -58,13 +58,13 @@ func Go() {
 
 	body, err := ioutil.ReadAll(os.Stdin)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "error reading stdin")
+		fmt.Fprintln(os.Stderr, "error reading stdin", err)
 		os.Exit(11)
 	}
 
 	msg, err := mail.ReadMessage(bytes.NewReader(body))
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "error parsing message body")
+		fmt.Fprintln(os.Stderr, "error parsing message body", err)
 		os.Exit(11)
 	}
 
